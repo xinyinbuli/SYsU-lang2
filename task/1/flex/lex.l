@@ -4,47 +4,74 @@
 
 using namespace lex;
 
-#define ADDCOL() g.mColumn += yyleng;
 #define COME(id) return come(id, yytext, yyleng, yylineno)
+#define GFN() getfilename(yytext,yylineno)
+#define SC() spacecontrol(yytext)
 %}
 
 %option 8bit warn noyywrap yylineno
 
 D     [0-9]
 L     [a-zA-Z_]
+F     [0-9a-f]
 IS    ((u|U)|(u|U)?(l|L|ll|LL)|(l|L|ll|LL)(u|U))
 
 %%
 
-"int"       { ADDCOL(); COME(INT); }
-"return"    { ADDCOL(); COME(RETURN); }
+"int"       {  COME(INT); }
+"void"      {  COME(VOID); }
+"const"     {  COME(CONST); }
+"return"    {  COME(RETURN); }
+"if"        {  COME(IF); }
+"else"      {  COME(ELSE); }
+"while"     {  COME(WHILE); }
+"break"     {  COME(BREAK); }
+"continue"     {  COME(CONTINUE); }
 
-"("         { ADDCOL(); COME(L_PAREN); }
-")"         { ADDCOL(); COME(R_PAREN); }
-"["         { ADDCOL(); COME(L_SQUARE); }
-"]"         { ADDCOL(); COME(R_SQUARE); }
-"{"         { ADDCOL(); COME(L_BRACE); }
-"}"         { ADDCOL(); COME(R_BRACE); }
+"("         {  COME(L_PAREN); }
+")"         {  COME(R_PAREN); }
+"["         {  COME(L_SQUARE); }
+"]"         {  COME(R_SQUARE); }
+"{"         {  COME(L_BRACE); }
+"}"         {  COME(R_BRACE); }
 
-"+"         { ADDCOL(); COME(PLUS); }
+"+"         {  COME(PLUS); }
+"-"         {  COME(MINUS); }
+"*"         {  COME(STAR); }
+"/"         {  COME(SLASH); }
+"%"         {  COME(PERCENT); }
 
-";"         { ADDCOL(); COME(SEMI); }
-","         { ADDCOL(); COME(COMMA); }
 
-"="         { ADDCOL(); COME(EQUAL); }
+";"         {  COME(SEMI); }
+","         {  COME(COMMA); }
 
-{L}({L}|{D})*         { ADDCOL(); COME(IDENTIFIER); }
+"<="        {  COME(LESSEQUAL); }
+">="        {  COME(GREATEREQUAL); }
+"!="        {  COME(EXCLAIMEQUAL); }
+"=="        {  COME(EQUALEQUAL); }
+"="         {  COME(EQUAL); }
+"!"         {  COME(EXCLAIM); }
+">"         {  COME(GREATER); }
+"<"         {  COME(LESS); }
+"||"        {  COME(PIPEPIPE); }
+"&&"        {  COME(AMPAMP); }
+"|"        {  COME(PIPE); }
+"&"        {  COME(AMP); }
 
-L?\"(\\.|[^\\"\n])*\" { ADDCOL(); COME(STRING_LITERAL); }
 
-0[0-7]*{IS}?          { ADDCOL(); COME(CONSTANT); }
-[1-9]{D}*{IS}?        { ADDCOL(); COME(CONSTANT); }
+{L}({L}|{D})*         {  COME(IDENTIFIER); }
 
-^#[^\n]*              { return ~YYEOF; } /* 预处理信息处理，可以从预处理信息中获得文件名以及行号 */
+L?\"(\\.|[^\\"\n])*\" {  COME(STRING_LITERAL); }
 
-[ \t\v\n\f]           { return ~YYEOF; } /* 需要处理行号和列号信息 */
+0[0-7]*{IS}?          {  COME(CONSTANT); }
+[1-9]{D}*{IS}?        {  COME(CONSTANT); }
+0x{F}*{IS}?        {  COME(CONSTANT); }
 
-<<EOF>>     { ADDCOL(); COME(YYEOF); }
+^#[^\n]*              { GFN();return ~YYEOF; } /* 预处理信息处理，可以从预处理信息中获得文件名以及行号 */
+
+[ \t\v\n\f]           { SC();return ~YYEOF; } /* 需要处理行号和列号信息 */
+
+<<EOF>>     {  COME(YYEOF); }
 
 %%
 

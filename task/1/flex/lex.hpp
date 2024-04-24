@@ -16,7 +16,14 @@ enum Id
   CONSTANT,
   STRING_LITERAL,
   INT,
+  VOID,
+  CONST,
   RETURN,
+  IF,
+  ELSE,
+  WHILE,
+  BREAK,
+  CONTINUE,
   L_BRACE,
   R_BRACE,
   L_SQUARE,
@@ -24,8 +31,23 @@ enum Id
   L_PAREN,
   R_PAREN,
   SEMI,
+  LESSEQUAL,
+  GREATEREQUAL,
+  EXCLAIMEQUAL,
+  EQUALEQUAL,
   EQUAL,
+  EXCLAIM,
+  GREATER,
+  LESS,
+  PIPEPIPE,
+  AMPAMP,
+  PIPE,
+  AMP,
   PLUS,
+  MINUS,
+  STAR,
+  SLASH,
+  PERCENT,
   COMMA
 };
 
@@ -37,7 +59,7 @@ struct G
   Id mId{ YYEOF };              // 词号
   std::string_view mText;       // 对应文本
   std::string mFile;            // 文件路径
-  int mLine{ 1 }, mColumn{ 1 }; // 行号、列号
+  int mLine{ 0 }, mColumn{ 1 }; // 行号、列号
   bool mStartOfLine{ true };    // 是否是行首
   bool mLeadingSpace{ false };  // 是否有前导空格
 };
@@ -46,5 +68,9 @@ extern G g;
 
 int
 come(int tokenId, const char* yytext, int yyleng, int yylineno);
+void
+getfilename(const char* yytext, int yyleng);
+void 
+spacecontrol(const char* yytext);
 
 } // namespace lex

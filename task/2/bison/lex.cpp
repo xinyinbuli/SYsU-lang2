@@ -33,6 +33,25 @@ come_line(const char* yytext, int yyleng, int yylineno)
     { "plus", '+' },
     { "eof", YYEOF },
     // TODO 添加其他的 token
+    {"const",CONST},
+    {"if",IF},
+    {"else",ELSE},
+    {"while",WHILE},
+    {"break", BREAK},
+    {"continue", CONTINUE},
+    { "star", '*' },
+    { "slash" ,'/'},
+    { "minus", '-' },
+    { "percent", '%' },
+    { "lessequal", LESSEQUAL },
+    { "greaterequal", GREATEREQUAL },
+    { "exclaimequal", EXCLAIMEQUAL },
+    { "equalequal", EQUALEQUAL },
+    { "exclaim",'!' },
+    { "greater",'>' },
+    { "less", '<' },
+    { "pipepipe", PIPEPIPE },
+    { "ampamp", AMPAMP },
   };
 
   auto iter = kTokenId.find(name);

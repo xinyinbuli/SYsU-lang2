@@ -1,0 +1,19 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${default}",
+                "${workspaceFolder}/task/2/common",
+                "${workspaceFolder}/build/task/2/bison",
+                "${workspaceFolder}/task/2/bison"
+            ],
+            "defines": [],
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "linux-clang-x64",
+            "compilerPath": "/usr/bin/clang++-14"
+        }
+    ],
+    "version": 4
+}
