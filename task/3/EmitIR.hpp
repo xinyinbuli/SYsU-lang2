@@ -36,6 +36,12 @@ private:
 
   llvm::Constant* operator()(asg::IntegerLiteral* obj);
 
+  llvm::Value* operator()(asg::BinaryExpr* obj);
+  
+  llvm::Value* operator()(asg::ImplicitCastExpr* obj);
+
+  llvm::Value* operator()(asg::DeclRefExpr* obj);
+
   // TODO: 添加表达式处理相关声明
 
   //============================================================================
@@ -57,6 +63,9 @@ private:
   void operator()(asg::Decl* obj);
 
   void operator()(asg::FunctionDecl* obj);
+  
+  void operator()(asg::VarDecl* obj);
 
   // TODO: 添加声明处理相关声明
+  void trans_init(llvm::Value* val, asg::Expr* obj);
 };
