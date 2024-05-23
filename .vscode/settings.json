@@ -13,7 +13,7 @@
     "CMakeLists.txt": "cmake",
     "unordered_map": "cpp"
   },
-<<<<<<< Updated upstream
+
 
   //* C/C++
   "cmake.preferredGenerators": ["Ninja"],
@@ -25,14 +25,10 @@
     "editor.formatOnType": true
   },
   "flake8.args": ["--ignore=E203,W503", "--max-line-length=88"],
-  "autoDocstring.docstringFormat": "one-line-sphinx"
-=======
+  "autoDocstring.docstringFormat": "one-line-sphinx",
   "editor.unfoldOnClickAfterEndOfLine": false,
   "files.eol": "\n",
   "autoDocstring.docstringFormat": "one-line-sphinx",
   "C_Cpp.errorSquiggles": "disabled"
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+
 }
