@@ -31,5 +31,8 @@
   "files.eol": "\n",
   "autoDocstring.docstringFormat": "one-line-sphinx",
   "C_Cpp.errorSquiggles": "disabled"
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 }
